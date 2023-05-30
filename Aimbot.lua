@@ -146,7 +146,7 @@ Nebula.F.GetClosest = function(self, teamcheck, friendcheck, wallcheck, mode, fo
         end
     end
 
-    return Closest.Character.Head
+    return Closest
 end
 
 function Nebula.L:CreateLoop(Function, StartCallback, EndCallback)
@@ -184,6 +184,7 @@ local Settings = {
         TeamCheck = false,
         OnScreenCheck = false,
         MaxParts = 4,
+        UseFOV = false,
         FOVCircle = nil,
         AimingMethod = "snap",
         SmoothSpeed = 400,
@@ -232,7 +233,20 @@ local function CreateFOV()
     Settings.Aimbot.FOVCircle = Circle
 end
 
+local function DestroyFOV()
+    if Settings.Aimbot.FOVCircle then
+        Settings.Aimbot.FOVCircle:Destroy()
+        Settings.Aimbot.FOVCircle = nil
+    end
+end
+
 local function UpdateFOV()
+    if not Settings.Aimbot.UseFOV then
+        if Settings.Aimbot.FOVCircle then
+            DestroyFOV()
+            return
+        end
+    end
     if not Settings.Aimbot.FOVCircle then
         CreateFOV()
     end
@@ -253,13 +267,6 @@ local function UpdateFOV()
             Settings.Aimbot.OnScreenCheck)
 
         Nebula.ESP:UpdateTracer(Settings.Aimbot.Tracer, Vector2.new(Nebula.Mouse.X, Nebula.Mouse.Y + 36), Closest)
-    end
-end
-
-local function DestroyFOV()
-    if Settings.Aimbot.FOVCircle then
-        Settings.Aimbot.FOVCircle:Destroy()
-        Settings.Aimbot.FOVCircle = nil
     end
 end
 
@@ -422,7 +429,7 @@ return Settings, Nebula
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣾⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣟⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢘⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣗⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-]] 
+]]
 
 -- You like kissing boys dont you
 -- erm yes i do
