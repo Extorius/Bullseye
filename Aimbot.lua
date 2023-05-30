@@ -98,10 +98,8 @@ Nebula.F.GetClosest = function(self, teamcheck, friendcheck, wallcheck, mode, fo
                 local Obstructing = Nebula.Camera:GetPartsObscuringTarget(
                     {Nebula.Camera.CFrame.Position, Head.Position}, {Character, Character2})
 
-                if #Obstructing > maxparts then
+                if Obstructing and #Obstructing > maxparts then
                     CanContinue = false
-                else
-                    print(#Obstructing)
                 end
             end
 
@@ -257,7 +255,8 @@ local function UpdateFOV()
 
     if Settings.Aimbot.ShowLockOn then
         if not Settings.Aimbot.Tracer then
-            Settings.Aimbot.Tracer = Nebula.ESP:CreateTracer(Color3.fromRGB(255, 255, 255))
+            Settings.Aimbot.Tracer = Drawing.new("Line")
+            Settings.Aimbot.Tracer = Color3.fromRGB(255, 255, 255)
         else
             Settings.Aimbot.Tracer.Visible = true
         end
