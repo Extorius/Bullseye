@@ -350,4 +350,4 @@ FOVLoop:Toggle()
 AimbotLoop:Toggle()
 TriggerBotLoop:Toggle()
 
-return Settings, Nebulau
+return {Settings = Settings, Nebula = Nebula}
