@@ -171,7 +171,7 @@ function Nebula.L:CreateLoop(Function, StartCallback, EndCallback)
     return Loop
 end
 
-local Settings = {
+getgenv().Settings = {
     Aimbot = {
         Enabled = false,
         Range = 1000,
