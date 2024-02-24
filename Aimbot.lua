@@ -226,7 +226,6 @@ local function CreateFOV()
     Circle.Radius = Settings.Aimbot.FOV
     Circle.Thickness = 1
     Circle.NumSides = 32
-    Circle.Visible = true
     Circle.Color = Color3.fromRGB(255, 255, 255)
     Settings.Aimbot.FOVCircle = Circle
 end
@@ -257,8 +256,6 @@ local function UpdateFOV()
         if not Settings.Aimbot.Tracer then
             Settings.Aimbot.Tracer = Drawing.new("Line")
             Settings.Aimbot.Tracer = Color3.fromRGB(255, 255, 255)
-        else
-            Settings.Aimbot.Tracer.Visible = true
         end
 
         local Closest = Nebula.F:GetClosest(Settings.Aimbot.TeamCheck, Settings.Aimbot.FriendCheck,
@@ -277,7 +274,7 @@ local function CleanUp(KeepTracer)
     end
 
     if Settings.Aimbot.Tracer and not KeepTracer then
-        Settings.Aimbot.Tracer.Visible = false
+        Settings.Aimbot.Tracer:Destroy()
     end
 end
 
