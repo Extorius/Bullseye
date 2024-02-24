@@ -23,6 +23,34 @@ Nebula.__cache = {
     ["Humanoid"] = {}
 }
 
+Nebula.ESP = {}
+
+Nebula.ESP.CreateTracer = LPH_JIT(function(self, color)
+    local Tracer = Drawing.new("Line")
+    Tracer.Visible = true
+    Tracer.Thickness = 2
+    Tracer.Color = color
+
+    return Tracer
+end)
+
+Nebula.ESP.UpdateTracer = LPH_JIT(function(self, tracer, from, player)
+    local Position, Visible = Nebula.Camera:WorldToViewportPoint(Nebula.F:Root(player).Position)
+    if not Visible then
+        tracer:Destroy()
+        return nil
+    end
+
+    if type(from) == 'string' then
+        tracer.From = from == "bottom" and Nebula.Camera.ViewportSize * Vector2.new(0.5, 1) or from == "top" and Nebula.Camera.ViewportSize * Vector2.new(0.5, 0)
+    else
+        tracer.From = from
+    end
+
+    tracer.To = Vector2.new(Position.X, Position.Y)
+    return tracer
+end)
+
 function Nebula.F:Character(Player)
     Player = Player or Nebula.LocalPlayer
     if Nebula.__cache["Character"][Player.Name] then
