@@ -25,16 +25,16 @@ Nebula.__cache = {
 
 Nebula.ESP = {}
 
-Nebula.ESP.CreateTracer = LPH_JIT(function(self, color)
+Nebula.ESP.CreateTracer = function(self, color)
     local Tracer = Drawing.new("Line")
     Tracer.Visible = true
     Tracer.Thickness = 2
     Tracer.Color = color
 
     return Tracer
-end)
+end
 
-Nebula.ESP.UpdateTracer = LPH_JIT(function(self, tracer, from, player)
+Nebula.ESP.UpdateTracer = function(self, tracer, from, player)
     local Position, Visible = Nebula.Camera:WorldToViewportPoint(Nebula.F:Root(player).Position)
     if not Visible then
         tracer:Destroy()
@@ -49,7 +49,7 @@ Nebula.ESP.UpdateTracer = LPH_JIT(function(self, tracer, from, player)
 
     tracer.To = Vector2.new(Position.X, Position.Y)
     return tracer
-end)
+end
 
 function Nebula.F:Character(Player)
     Player = Player or Nebula.LocalPlayer
